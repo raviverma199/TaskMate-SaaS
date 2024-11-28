@@ -1,0 +1,161 @@
+/* Main container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #005f73, #0a9396, #94d2bd);
+    margin: 0;
+    overflow: hidden; /* Prevent scroll */
+    padding: 0 15px; /* Ensure responsiveness */
+  }
+  
+  /* Form container */
+  .auth-box {
+    background-color: rgba(255, 255, 255, 0.95); /* Light transparent background */
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Add an illustrative image */
+  .auth-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #eef4f8;
+    display: block;
+  }
+  
+  /* Title */
+  .auth-box h2 {
+    font-size: 28px;
+    color: #005f73;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+  }
+  
+  /* Input group styling */
+  .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    font-size: 14px;
+    color: #005f73;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .input-group input {
+    width: 94%;
+    padding: 12px;
+    font-size: 14px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #0a9396;
+    background-color: #ffffff;
+  }
+  
+  /* Button */
+  .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #0a9396;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #005f73;
+  }
+  
+  /* Toggle link */
+  .toggle-form {
+    font-size: 14px;
+    color: #005f73;
+    margin-top: 15px;
+  }
+  
+  .toggle-form .link {
+    color: #0a9396;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .toggle-form .link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .auth-box {
+      padding: 20px;
+    }
+  
+    .auth-box h2 {
+      font-size: 24px;
+    }
+  
+    .input-group input {
+      padding: 10px;
+    }
+  
+    .btn {
+      padding: 12px;
+    }
+  }
+  
+
+
+  /* Policy Section */
+.policy-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; /* Space between checkbox and text */
+    margin-top: 15px;
+    font-size: 12px;
+    color: #005f73;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  .policy-section input[type="checkbox"] {
+    margin-top: 2px; /* Aligns checkbox with text */
+    cursor: pointer;
+  }
+  
+  .policy-section label {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .policy-section a {
+    color: #0a9396;
+    text-decoration: none;
+  }
+  
+  .policy-section a:hover {
+    text-decoration: underline;
+  }
+  
