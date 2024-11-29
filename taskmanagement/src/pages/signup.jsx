@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import '../Assests/style/signup.css'
 import banner from '../Assests/images/img-2.webp'
+import { Link } from 'react-router-dom';
 
 
 
@@ -51,9 +52,9 @@ function Signup() {
     />
     <label htmlFor="policy">
       By signing up, I accept the 
-      <a href="#" target="_blank" rel="noopener noreferrer"> Terms of Service </a> 
+      <Link href="/privacy_policy" target="_blank" rel="noopener noreferrer"> Terms of Service </Link> 
       and acknowledge the  
-      <a href="#" target="_blank" rel="noopener noreferrer"> Privacy Policy</a>.
+      <Link href="/privacy_policy" target="_blank" rel="noopener noreferrer"> Privacy Policy</Link>.
     </label>
   </div>
 )}
