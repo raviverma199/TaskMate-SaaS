@@ -3,13 +3,11 @@ import '../Assests/style/signup.css'
 import banner from '../Assests/images/img-2.webp'
 
 
+
 function Signup() {
     const [isLogin, setIsLogin] = useState(true);  // Toggle between login and signup
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-  
     const handleSubmit = (e) => {
       e.preventDefault();
       if (isLogin) {
@@ -21,7 +19,7 @@ function Signup() {
 
 
     return(
-        <>
+        <>   
 <div className="auth-container">
   <div className="auth-box">
     {/* Task management illustration */}
@@ -42,27 +40,7 @@ function Signup() {
         />
       </div>
 
-      {/* <div className="input-group">
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-        />
-      </div> */}
-
-      {/* {!isLogin && (
-        <div className="input-group">
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
-          />
-        </div>
-      )} */}
+  
  {!isLogin && (
   <div className="policy-section">
     <input 
@@ -73,8 +51,8 @@ function Signup() {
     />
     <label htmlFor="policy">
       By signing up, I accept the 
-      <a href="#" target="_blank" rel="noopener noreferrer"> Atlassian Cloud Terms of Service</a> 
-      and acknowledge the 
+      <a href="#" target="_blank" rel="noopener noreferrer"> Terms of Service </a> 
+      and acknowledge the  
       <a href="#" target="_blank" rel="noopener noreferrer"> Privacy Policy</a>.
     </label>
   </div>
