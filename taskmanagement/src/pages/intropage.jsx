@@ -131,10 +131,10 @@ function IntroPage() {
               individuals and teams.
             </p>
             <div className="space-y-4 md:space-x-4 md:space-y-0">
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+              <button className="px-6 mx-2 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
                 Start for Free
               </button>
-              <button className="px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out">
+              <button className="px-6 mx-2 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out">
                 Learn More
               </button>
             </div>
