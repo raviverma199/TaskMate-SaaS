@@ -1,83 +1,104 @@
-import React from 'react';
-import { FaHome, FaSearch, FaBell, FaUserAlt, FaCog } from 'react-icons/fa';
+import React from "react";
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md p-5">
-        <div className="text-lg font-bold mb-6">My Dashboard</div>
-        <nav>
-          <ul>
-            <li className="mb-4 hover:text-blue-600 cursor-pointer">
-              <FaHome className="inline-block mr-2" />
-              Home
-            </li>
-            <li className="mb-4 hover:text-blue-600 cursor-pointer">
-              <FaSearch className="inline-block mr-2" />
-              Search
-            </li>
-            <li className="mb-4 hover:text-blue-600 cursor-pointer">
-              <FaBell className="inline-block mr-2" />
-              Notifications
-            </li>
-            <li className="mb-4 hover:text-blue-600 cursor-pointer">
-              <FaUserAlt className="inline-block mr-2" />
-              Profile
-            </li>
-            <li className="mb-4 hover:text-blue-600 cursor-pointer">
-              <FaCog className="inline-block mr-2" />
-              Settings
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <div className="p-2 bg-gray-50 min-h-screen">
+      {/* Welcome Banner */}
+      <section className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white p-6 rounded-lg shadow-xl">
+        <h1 className="text-3xl font-semibold">Welcome back, Ravi Verma!</h1>
+        <p className="mt-2 text-lg">Here’s an overview of your tasks and progress.</p>
+      </section>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        {/* Top Bar */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-xl font-semibold">Dashboard</div>
-          <div className="flex space-x-6">
-            <FaSearch className="text-2xl cursor-pointer hover:text-gray-600" />
-            <FaBell className="text-2xl cursor-pointer hover:text-gray-600" />
-            <FaUserAlt className="text-2xl cursor-pointer hover:text-gray-600" />
+      {/* Task & Deadlines Overview */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        {/* Active Task Card */}
+        <div className="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300">
+          <div className="text-blue-600 p-4 rounded-full bg-blue-100 mb-4">
+            <i className="fas fa-tasks text-3xl"></i>
           </div>
+          <h2 className="mt-2 text-xl font-semibold text-gray-800">Your Active Tasks</h2>
+          <p className="text-3xl font-semibold text-gray-900 mt-2">5 Active Tasks</p>
         </div>
 
-        {/* Widgets */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Recent Updates */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold mb-4">Recent Updates</h3>
-            <ul className="space-y-3">
-              <li className="text-sm">New document created by John</li>
-              <li className="text-sm">Team meeting scheduled for Monday</li>
-              <li className="text-sm">Task "Update marketing plan" completed</li>
-            </ul>
+        {/* Upcoming Deadlines */}
+        <div className="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300">
+          <div className="text-yellow-600 p-4 rounded-full bg-yellow-100 mb-4">
+            <i className="fas fa-clock text-3xl"></i>
           </div>
+          <h2 className="mt-2 text-xl font-semibold text-gray-800">Upcoming Deadlines</h2>
+          <p className="text-3xl font-semibold text-gray-900 mt-2">2 Deadlines This Week</p>
+        </div>
 
-          {/* Upcoming Tasks */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold mb-4">Upcoming Tasks</h3>
-            <ul className="space-y-3">
-              <li className="text-sm">Finish writing the report</li>
-              <li className="text-sm">Update project documentation</li>
-              <li className="text-sm">Send client feedback</li>
-            </ul>
+        {/* Completed Tasks */}
+        <div className="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300">
+          <div className="text-green-600 p-4 rounded-full bg-green-100 mb-4">
+            <i className="fas fa-check-circle text-3xl"></i>
           </div>
+          <h2 className="mt-2 text-xl font-semibold text-gray-800">Completed Tasks</h2>
+          <p className="text-3xl font-semibold text-gray-900 mt-2">12 Completed Tasks</p>
+        </div>
+      </section>
 
-          {/* Quick Links */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-3">
-              <li className="text-sm hover:text-blue-600 cursor-pointer">Project Overview</li>
-              <li className="text-sm hover:text-blue-600 cursor-pointer">Team Members</li>
-              <li className="text-sm hover:text-blue-600 cursor-pointer">Knowledge Base</li>
-            </ul>
+      {/* Task List */}
+      <section className="mt-8">
+        <h2 className="text-2xl font-semibold text-gray-800">Your Tasks</h2>
+        <div className="bg-white shadow-xl rounded-lg p-6 mt-4">
+          <table className="w-full text-gray-700">
+            <thead>
+              <tr className="bg-gray-100 text-left">
+                <th className="p-4 text-sm font-medium">Task</th>
+                <th className="p-4 text-sm font-medium">Priority</th>
+                <th className="p-4 text-sm font-medium">Deadline</th>
+                <th className="p-4 text-sm font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[ 
+                { task: "Complete Feature A", priority: "High", deadline: "Dec 10", status: "In Progress" },
+                { task: "Fix Bug B", priority: "Medium", deadline: "Dec 8", status: "Pending" },
+                { task: "Update Documentation", priority: "Low", deadline: "Dec 15", status: "Completed" },
+              ].map((item, index) => (
+                <tr key={index} className="hover:bg-gray-50 transition-all duration-200">
+                  <td className="p-4 text-sm">{item.task}</td>
+                  <td className="p-4 text-sm">{item.priority}</td>
+                  <td className="p-4 text-sm">{item.deadline}</td>
+                  <td className="p-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm ${
+                        item.status === "Completed"
+                          ? "bg-green-100 text-green-800"
+                          : item.status === "In Progress"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-red-100 text-red-800"
+                      }`}
+                    >
+                      {item.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Progress Section */}
+      <section className="mt-8">
+        <h2 className="text-2xl font-semibold text-gray-800">Your Progress</h2>
+        <div className="bg-white p-6 shadow-xl rounded-lg mt-4">
+          <div className="relative">
+            <div className="w-full bg-gray-200 h-2 rounded-full">
+              <div
+                className="h-2 rounded-full bg-blue-500"
+                style={{ width: "70%" }} // Example: dynamic percentage of progress
+              ></div>
+            </div>
+            <p className="text-sm font-medium text-gray-700 mt-1">
+              70% of your tasks are completed
+            </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
