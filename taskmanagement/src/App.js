@@ -5,6 +5,8 @@ import Sidebar from "./component/sidebar";
 import Header from "./component/header";
 import ProjectsPage from "./pages/project";
 
+import TeamsPage from "./pages/teams";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Layout component for pages with Sidebar and Header
@@ -53,6 +55,15 @@ function App() {
           element={
             <SimpleLayout>
               <ProjectsPage />
+            </SimpleLayout>
+          }
+        />
+
+<Route
+          path="/teams"
+          element={
+            <SimpleLayout>
+              <TeamsPage />
             </SimpleLayout>
           }
         />
