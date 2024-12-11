@@ -2,10 +2,43 @@ import React, { useState } from "react";
 import banner from "../Assests/images/img-3.png";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-
-
+import ApiCall from "../services/Apicall";
 
 function IntroPage() {
+  const [inputData, setinputData] = useState({
+    user_name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setinputData((prevState) => {
+      const newFormData = { ...prevState, [name]: value };
+      return newFormData;
+    });
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      
+      const API_ENDPOINT = '/api/createuser'
+      const PayLoad = {user_name: inputData.user_name, email: inputData.email, password: inputData.password}
+
+      let request = await ApiCall("POST", API_ENDPOINT, PayLoad)
+
+      if(request.success){
+        alert('okkk')
+      }else{
+        console.log('error');
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,253 +47,254 @@ function IntroPage() {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const toggleAuthMode = () => setIsLogin(!isLogin);
 
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   return (
     <>
+      <div>
+        {/* Modal */}
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="bg-white rounded-lg w-96 p-8 shadow-xl relative"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={toggleModal}
+                  className="absolute top-4 right-4 text-gray-600 hover:text-black text-xl"
+                >
+                  &times;
+                </button>
 
-<div>
+                {/* Modal Content */}
+                <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+                  {isLogin ? "Login" : "Sign Up"}
+                </h2>
 
-    {/* Modal */}
-    <AnimatePresence>
-  {isModalOpen && (
-    <motion.div
-      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="bg-white rounded-lg w-96 p-8 shadow-xl relative"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        {/* Close Button */}
-        <button
-          onClick={toggleModal}
-          className="absolute top-4 right-4 text-gray-600 hover:text-black text-xl"
-        >
-          &times;
-        </button>
+                {/* Form */}
+                <form className="space-y-6">
+                  {!isLogin && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your name"
+                        name="user_name"
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      name="email"
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      placeholder="Enter your password"
+                      name="password"
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out" onClick={handleSubmit}
+                  >
+                    {isLogin ? "Login" : "Sign Up"}
+                  </button>
+                </form>
 
-        {/* Modal Content */}
-        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-          {isLogin ? "Login" : "Sign Up"}
-        </h2>
+                {/* Social Authentication */}
+                <div className="my-4 text-center text-gray-500">OR</div>
+                <div className="flex flex-col space-y-2">
+                  <button className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition ease-in-out">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+                      alt="Google"
+                      className="w-5 h-5 mr-3"
+                    />
+                    Continue with Google
+                  </button>
 
-        {/* Form */}
-        <form className="space-y-6">
-          {!isLogin && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+                  <button className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition ease-in-out">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                      alt="Apple"
+                      className="w-5 h-5 mr-3"
+                    />
+                    Continue with Apple
+                  </button>
+                </div>
+
+                {/* Toggle between Login and Signup */}
+                <p className="mt-6 text-center text-sm text-gray-500">
+                  {isLogin
+                    ? "Don't have an account? "
+                    : "Already have an account? "}
+                  <span
+                    onClick={toggleAuthMode}
+                    className="text-blue-600 cursor-pointer hover:underline"
+                  >
+                    {isLogin ? "Sign Up" : "Login"}
+                  </span>
+                </p>
+              </motion.div>
+            </motion.div>
           )}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out"
-          >
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
-
-        {/* Social Authentication */}
-        <div className="my-4 text-center text-gray-500">OR</div>
-        <div className="flex flex-col space-y-2">
-          <button
-            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition ease-in-out"
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-              alt="Google"
-              className="w-5 h-5 mr-3"
-            />
-            Continue with Google
-          </button>
-
-          <button
-            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition ease-in-out"
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-              alt="Apple"
-              className="w-5 h-5 mr-3"
-            />
-            Continue with Apple
-          </button>
-        </div>
-
-        {/* Toggle between Login and Signup */}
-        <p className="mt-6 text-center text-sm text-gray-500">
-          {isLogin
-            ? "Don't have an account? "
-            : "Already have an account? "}
-          <span
-            onClick={toggleAuthMode}
-            className="text-blue-600 cursor-pointer hover:underline"
-          >
-            {isLogin ? "Sign Up" : "Login"}
-          </span>
-        </p>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
-
-
-
-  </div>
-
+        </AnimatePresence>
+      </div>
 
       <div className="bg-gradient-to-br from-blue-100 to-white min-h-screen">
         {/* Header */}
         <header className="flex justify-between items-center px-6 md:px-10 py-5 shadow-lg bg-white fixed top-0 left-0 w-full  transition-all">
-  <div className="text-xl md:text-2xl font-bold text-blue-600 hover:text-blue-700 cursor-pointer">
-    TaskManager
-  </div>
+          <div className="text-xl md:text-2xl font-bold text-blue-600 hover:text-blue-700 cursor-pointer">
+            TaskManager
+          </div>
 
-  {/* Toggle Button for Mobile */}
-  <button
-    className="md:hidden text-blue-600 focus:outline-none"
-    onClick={toggleMenu}
-    aria-label="Toggle menu"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      className="w-8 h-8 transition-transform transform"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      ></path>
-    </svg>
-  </button>
+          {/* Toggle Button for Mobile */}
+          <button
+            className="md:hidden text-blue-600 focus:outline-none"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-8 h-8 transition-transform transform"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
 
-  {/* Navigation Menu */}
-  <nav
-    className={`space-x-4 md:space-x-6 ${isOpen ? "block" : "hidden"} md:block transition-all ease-in-out duration-300`}
-  >
-    <Link
-      to="#"
-      className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
-    >
-      Features
-    </Link>
-    <Link
-      to="/pricing"
-      className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
-    >
-      Pricing
-    </Link>
-    <Link
-      to="/contact"
-      className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
-    >
-      Contact Us
-    </Link>
-    <button className="px-4 py-2 text-sm md:text-base border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition-all" onClick={toggleModal}>
-      Login
-    </button>
-  </nav>
+          {/* Navigation Menu */}
+          <nav
+            className={`space-x-4 md:space-x-6 ${
+              isOpen ? "block" : "hidden"
+            } md:block transition-all ease-in-out duration-300`}
+          >
+            <Link
+              to="#"
+              className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Features
+            </Link>
+            <Link
+              to="/pricing"
+              className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Pricing
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm md:text-base text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Contact Us
+            </Link>
+            <button
+              className="px-4 py-2 text-sm md:text-base border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition-all"
+              onClick={toggleModal}
+            >
+              Login
+            </button>
+          </nav>
 
-  {/* Mobile Menu */}
-  <div
-    className={`fixed top-0 left-0 w-3/4 h-full bg-white shadow-md transform transition-transform duration-300 md:hidden z-40 ${
-      isOpen ? "translate-x-0" : "-translate-x-full"
-    }`}
-  >
-    {/* Close Button */}
-    <div className="flex justify-between items-center p-5 border-b">
-      <div className="text-xl font-bold text-blue-600">TaskManager</div>
-      <button className="text-blue-600 focus:outline-none" onClick={toggleMenu}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-8 h-8"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M6 18L18 6M6 6l12 12"
-          ></path>
-        </svg>
-      </button>
-    </div>
+          {/* Mobile Menu */}
+          <div
+            className={`fixed top-0 left-0 w-3/4 h-full bg-white shadow-md transform transition-transform duration-300 md:hidden z-40 ${
+              isOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            {/* Close Button */}
+            <div className="flex justify-between items-center p-5 border-b">
+              <div className="text-xl font-bold text-blue-600">TaskManager</div>
+              <button
+                className="text-blue-600 focus:outline-none"
+                onClick={toggleMenu}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
 
-    {/* Sidebar Links */}
-    <nav className="flex flex-col space-y-6 px-6 py-4">
-      <Link
-        to="/features"
-        className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
-      >
-        Features
-      </Link>
-      <Link
-        to="/pricing"
-        className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
-      >
-        Pricing
-      </Link>
-      <Link
-        to="/contact"
-        className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
-      >
-        Contact Us
-      </Link>
-      <button className="px-4 py-2 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition-all">
-        Login
-      </button>
-    </nav>
-  </div>
+            {/* Sidebar Links */}
+            <nav className="flex flex-col space-y-6 px-6 py-4">
+              <Link
+                to="/features"
+                className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Features
+              </Link>
+              <Link
+                to="/pricing"
+                className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Pricing
+              </Link>
+              <Link
+                to="/contact"
+                className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Contact Us
+              </Link>
+              <button className="px-4 py-2 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition-all">
+                Login
+              </button>
+            </nav>
+          </div>
 
-  {/* Background Overlay */}
-  {isOpen && (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
-      onClick={toggleMenu}
-    ></div>
-  )}
-</header>
-
-
+          {/* Background Overlay */}
+          {isOpen && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+              onClick={toggleMenu}
+            ></div>
+          )}
+        </header>
 
         {/* Hero Section */}
         <section className="flex flex-col md:flex-row items-center justify-center md:justify-between px-6 md:px-10 py-10 md:py-20 bg-gray-50 mt-12 bg-gradient-to-r from-blue-50 to-blue-200 rounded-tl-3xl rounded-br-3xl pt-16 shadow-lg">
@@ -273,7 +307,10 @@ function IntroPage() {
               individuals and teams.
             </p>
             <div className="space-y-4 md:space-x-4 md:space-y-0">
-              <button className="px-6 mx-2 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out" onClick={toggleModal}>
+              <button
+                className="px-6 mx-2 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out"
+                onClick={toggleModal}
+              >
                 Start for Free
               </button>
               <button className="px-6 mx-2 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out">
@@ -381,7 +418,10 @@ function IntroPage() {
           <p className="text-lg mb-6">
             Sign up today and experience the difference TaskManager can make!
           </p>
-          <button className="px-6 py-3 bg-white text-blue-600 font-bold rounded hover:bg-gray-100" onClick={toggleModal}>
+          <button
+            className="px-6 py-3 bg-white text-blue-600 font-bold rounded hover:bg-gray-100"
+            onClick={toggleModal}
+          >
             Start for Free
           </button>
         </section>

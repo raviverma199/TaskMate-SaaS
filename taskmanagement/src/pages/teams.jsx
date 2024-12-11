@@ -8,6 +8,7 @@ import {
   FaPlusCircle,
   FaListAlt,
   FaTrashAlt,
+  FaCommentDots
 } from "react-icons/fa";
 
 const TeamsPage = () => {
@@ -18,10 +19,10 @@ const TeamsPage = () => {
     const fetchedTeamMembers = [
       {
         id: 1,
-        name: "Bob",
+        name: "Ravi",
         role: "Developer",
         assignedProjects: ["Project 1"],
-        email: "bob@example.com",
+        email: "Ravi@dev.com",
         startDate: "2024-01-01",
         status: "On Time",
         task: "Implement login feature",
@@ -29,10 +30,10 @@ const TeamsPage = () => {
       },
       {
         id: 2,
-        name: "Charlie",
+        name: "Manish",
         role: "QA Tester",
         assignedProjects: ["Project 1"],
-        email: "charlie@example.com",
+        email: "Manish@dev.com",
         startDate: "2024-03-01",
         status: "Delayed",
         task: "Test user registration",
@@ -40,10 +41,10 @@ const TeamsPage = () => {
       },
       {
         id: 3,
-        name: "David",
+        name: "Roshan",
         role: "Designer",
         assignedProjects: ["Project 1"],
-        email: "david@example.com",
+        email: "Roshan@dev.com",
         startDate: "2024-04-01",
         status: "Stared yesterday",
         task: "",
@@ -84,6 +85,11 @@ const TeamsPage = () => {
       )
     );
   };
+  const handleCommentClick = (id) => {
+    console.log(`Comment icon clicked for Member ID: ${id}`);
+    // Placeholder for future functionality (e.g., open modal or navigate)
+    alert(`Open comment section for Member ID: ${id}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 px-6 py-6">
@@ -117,72 +123,78 @@ const TeamsPage = () => {
 
         {/* Members with Tasks */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 mt-6">
-            Team with Tasks
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {teamMembers
-              .filter((member) => member.task)
-              .map((member) => (
-                <div
-                  key={member.id}
-                  className="bg-white p-4 border rounded-md shadow-md hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                      <FaUser className="text-blue-600 text-lg" />
-                    </div>
-                    <div className="text-gray-700 font-semibold text-lg">
-                      {member.name}
-                    </div>
-                    <FaMinusCircle
-                      onClick={() => removeMember(member.id)}
-                      className="text-red-500 text-lg cursor-pointer hover:text-red-600"
-                    />
+      <h3 className="text-xl font-semibold text-gray-800 mb-4 mt-6">
+        People you work with
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {teamMembers
+          .filter((member) => member.task)
+          .map((member) => (
+            <div
+              key={member.id}
+              className="relative bg-white p-3 border rounded-lg shadow-md hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105"
+            >
+              {/* Comment Icon at Top Right */}
+              <div className="absolute top-2 right-2">
+                <FaCommentDots
+                  onClick={() => handleCommentClick(member.id)}
+                  className="text-blue-500 text-lg cursor-pointer hover:text-blue-600 transition duration-200 ease-in-out"
+                  title="Add/View Comment"
+                />
+              </div>
 
-                    <span className="px-3 py-1 text-green-700 bg-green-100 rounded-lg text-sm font-medium">
-                      {member.status}
-                    </span>
-                  </div>
-
-                  <div className="mt-2">
-                    <span className="text-gray-600 text-sm">{member.role}</span>
-                  </div>
-
-                  <div className="mt-2 text-sm text-gray-600">
-                    <div className="flex items-center">
-                      <FaCalendarAlt className="text-gray-500 text-lg" />
-                      <span className="ml-2">{member.deadline}</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <h4 className="text-gray-700 font-medium">
-                      Assigned Task:
-                    </h4>
-                    <p className="text-sm text-gray-600">{member.task}</p>
-                  </div>
-
-                  {/* Task Removal Button */}
-                  <div className="mt-3 flex justify-between items-center">
-                    <button
-                      onClick={() => removeTask(member.id)}
-                      className="flex items-center text-red-600 hover:text-red-500 text-sm"
-                    >
-                      <FaTrashAlt className="mr-2 text-lg" /> Remove Task
-                    </button>
-
-                    <button
-                      onClick={() => assignTask(member.id)}
-                      className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition duration-200 ease-in-out text-sm"
-                    >
-                      <FaTasks className="mr-1.5 text-lg" /> Assign New Task
-                    </button>
-                  </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <FaUser className="text-blue-600 text-md" />
                 </div>
-              ))}
-          </div>
-        </div>
+                <div className="text-gray-700 font-semibold text-base">
+                  {member.name}
+                </div>
+                <FaMinusCircle
+                  onClick={() => removeMember(member.id)}
+                  className="text-red-500 text-md cursor-pointer hover:text-red-600"
+                />
+                <span className="px-2 py-0.5 text-green-700 bg-green-100 rounded-lg text-xs font-medium">
+                  {member.status}
+                </span>
+              </div>
+
+              <div className="mt-2">
+                <span className="text-gray-600 text-sm">{member.role}</span>
+              </div>
+
+              <div className="mt-2 text-sm text-gray-600">
+                <div className="flex items-center">
+                  <FaCalendarAlt className="text-gray-500 text-md" />
+                  <span className="ml-2">{member.deadline}</span>
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <h4 className="text-gray-700 font-medium text-sm">Assigned Task:</h4>
+                <p className="text-sm text-gray-600">{member.task}</p>
+              </div>
+
+              {/* Task Removal and Assignment Buttons */}
+              <div className="mt-3 flex justify-between items-center">
+                <button
+                  onClick={() => removeTask(member.id)}
+                  className="flex items-center text-red-600 hover:text-red-500 text-xs"
+                >
+                  <FaTrashAlt className="mr-1 text-md" /> Remove Task
+                </button>
+
+                <button
+                  onClick={() => assignTask(member.id)}
+                  className="flex items-center px-2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition duration-200 ease-in-out text-xs"
+                >
+                  <FaTasks className="mr-1 text-md" /> Assign New Task
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
 
         {/* Members Without Tasks */}
         <div className="mt-8">

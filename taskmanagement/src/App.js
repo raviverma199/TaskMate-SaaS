@@ -5,6 +5,8 @@ import Sidebar from "./component/sidebar";
 import Header from "./component/header";
 import ProjectsPage from "./pages/project";
 
+import ReportsPage from "./pages/reports";
+
 import TeamsPage from "./pages/teams";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -16,7 +18,7 @@ const DashboardLayout = ({ children }) => {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
-        <main className="p-6 overflow-y-auto">{children}</main>
+        <main className="p-4 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
@@ -27,7 +29,7 @@ const SimpleLayout = ({ children }) => {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <main className="p-6 overflow-y-auto">{children}</main>
+      <main className="p-4 overflow-y-auto">{children}</main>
     </div>
   );
 };
@@ -64,6 +66,15 @@ function App() {
           element={
             <SimpleLayout>
               <TeamsPage />
+            </SimpleLayout>
+          }
+        />
+
+<Route
+          path="/reports"
+          element={
+            <SimpleLayout>
+              <ReportsPage />
             </SimpleLayout>
           }
         />
